@@ -14,4 +14,8 @@ public class Rock {
 
     public Rock() {
     }
+
+    public Rock(String type) {
+        this.type = type;
+    }
 }
