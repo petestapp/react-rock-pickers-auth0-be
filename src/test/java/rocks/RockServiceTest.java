@@ -6,6 +6,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class RockServiceTest {
     private RockService rockService;
@@ -25,5 +26,21 @@ class RockServiceTest {
 
         // act and assert
         assertNotNull(rockService);
+    }
+
+    @Test
+    public void saveRock_ShouldSaveRock() throws Exception {
+        // arrange
+        String type = "Obsidian";
+        Rock rock = new Rock(type);
+
+        when(rockRepository.save(rock)).thenReturn(rock);
+
+        // act
+        Rock result = rockService.saveRock(rock);
+
+        // assert
+        verify(rockRepository, times(1)).save(rock);
+        assertEquals(rock, result);
     }
 }
