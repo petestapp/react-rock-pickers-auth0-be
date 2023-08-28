@@ -9,4 +9,9 @@ public class RockService {
     public RockService(RockRepository repository) {
         this.repository = repository;
     }
+
+    public Rock saveRock(Rock rock) {
+        this.repository.save(rock);
+        return rock;
+    }
 }
