@@ -13,4 +13,16 @@ class RockTest {
         // assert
         assertNotNull(rock);
     }
+
+    @Test
+    public void rockConstructorTest_ShouldCreateRock() {
+        // arrange
+        String type = "Obsidian";
+
+        // act
+        Rock rock = new Rock(type);
+
+        // assert
+        assertEquals(type, rock.type);
+    }
 }
