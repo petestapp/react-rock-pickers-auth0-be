@@ -21,11 +21,20 @@ class RockServiceTest {
 
     @Test
     public void rockServiceConstructor_ShouldCreateRockService() {
-        // arrange
+        // arrange and act
         RockService rockService = new RockService(rockRepository);
 
-        // act and assert
+        // assert
         assertNotNull(rockService);
+    }
+
+    @Test
+    public void rockServiceConstructor_ShouldAddDefaultRocks() {
+        // arrange and act
+        RockService rockService = new RockService(rockRepository);
+
+        // assert
+        verify(rockRepository).saveAll(eq(defaultItems()));
     }
 
     @Test
