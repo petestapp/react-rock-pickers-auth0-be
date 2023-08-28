@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -26,6 +28,24 @@ class RockServiceTest {
 
         // assert
         assertNotNull(rockService);
+    }
+
+    @Test
+    public void defaultItems_ShouldCreateListOfRocks() {
+        // arrange
+        List<Rock> expected = List.of(
+                new Rock("Obsidian"),
+                new Rock("Basalt"),
+                new Rock("Quartz")
+        );
+
+        // act
+        List<Rock> result = RockService.defaultItems();
+
+        // assert
+        assertEquals(expected.get(0).type, result.get(0).type);
+        assertEquals(expected.get(1).type, result.get(1).type);
+        assertEquals(expected.get(2).type, result.get(2).type);
     }
 
     @Test
