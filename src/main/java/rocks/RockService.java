@@ -14,4 +14,11 @@ public class RockService {
         this.repository.save(rock);
         return rock;
     }
+
+    public List<Rock> getAllRocks() {
+        List<Rock> list = new ArrayList<>();
+        Iterable<Rock> rocks = repository.findAll();
+        rocks.forEach(list::add);
+        return list;
+    }
 }
