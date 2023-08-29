@@ -47,7 +47,7 @@ class RockControllerTest {
     }
 
     @Test
-    public void getAllRocks_ShouldReturnAllAccounts() throws Exception {
+    public void getAllRocks_ShouldReturnAllRocks() throws Exception {
         // arrange
         String type1 = "Obsidian";
         Rock rock1 = new Rock(type1);
