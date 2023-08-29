@@ -61,7 +61,7 @@ class RockRepositoryTest {
     }
 
     @Test
-    public void getAllRocksTest_ShouldReturnIterableOfRocks() {
+    public void getAllTest_ShouldReturnIterableOfRocks() {
         // arrange
         String type1 = "Obsidian";
         Rock rock1 = new Rock(type1);
@@ -79,12 +79,11 @@ class RockRepositoryTest {
         Iterable<Rock> result = rockRepository.findAll();
         List<Rock> resultAsList = new ArrayList<Rock>();
         result.forEach(resultAsList::add);
-        Object[] resultsAsArray = resultAsList.toArray();
 
         // assert
-        assertEquals(3, resultsAsArray.length);
-        assertEquals(type1, ((Rock) resultsAsArray[0]).type);
-        assertEquals(type2, ((Rock) resultsAsArray[1]).type);
-        assertEquals(type3, ((Rock) resultsAsArray[2]).type);
+        assertEquals(3, resultAsList.size());
+        assertEquals(type1, resultAsList.get(0).type);
+        assertEquals(type2, resultAsList.get(1).type);
+        assertEquals(type3, resultAsList.get(2).type);
     }
 }
