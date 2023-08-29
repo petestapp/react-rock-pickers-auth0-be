@@ -1,4 +1,4 @@
-package rocks;
+package com.example.reactrockpickersauth0be.rocks;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;

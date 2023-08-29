@@ -1,5 +1,7 @@
-package rocks;
+package com.example.reactrockpickersauth0be.rocks;
 
+import com.example.reactrockpickersauth0be.rocks.Rock;
+import com.example.reactrockpickersauth0be.rocks.RockRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

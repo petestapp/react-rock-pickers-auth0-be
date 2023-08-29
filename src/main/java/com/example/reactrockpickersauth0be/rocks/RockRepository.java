@@ -1,4 +1,4 @@
-package rocks;
+package com.example.reactrockpickersauth0be.rocks;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

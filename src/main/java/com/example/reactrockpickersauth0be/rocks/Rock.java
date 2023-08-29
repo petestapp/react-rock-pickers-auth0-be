@@ -1,4 +1,4 @@
-package rocks;
+package com.example.reactrockpickersauth0be.rocks;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
