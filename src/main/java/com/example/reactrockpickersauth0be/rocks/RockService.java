@@ -11,7 +11,6 @@ public class RockService {
 
     public RockService(RockRepository repository) {
         this.repository = repository;
-//        List<Rock> defaultRocks = defaultRocks();
         repository.saveAll(defaultRocks());
     }
 
