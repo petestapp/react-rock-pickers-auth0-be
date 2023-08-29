@@ -19,7 +19,7 @@ class RockRepositoryTest {
     private RockRepository rockRepository;
 
     @Test
-    public void saveRockTest_ShouldSaveRock() {
+    public void saveTest_ShouldSaveRock() {
         // arrange
         String type = "Obsidian";
         Rock rock = new Rock(type);
@@ -29,6 +29,35 @@ class RockRepositoryTest {
 
         // assert
         assertNotNull(result);
+    }
+
+    @Test
+    public void saveAllTest_ShouldSaveMultipleRocks() {
+        // arrange
+        String type1 = "Obsidian";
+        Rock rock1 = new Rock(type1);
+
+        String type2 = "Basalt";
+        Rock rock2 = new Rock(type2);
+
+        String type3 = "Quartz";
+        Rock rock3 = new Rock(type3);
+
+        List<Rock> rocks = new ArrayList<>();
+        rocks.add(rock1);
+        rocks.add(rock2);
+        rocks.add(rock3);
+
+        // act
+        Iterable<Rock> result = rockRepository.saveAll(rocks);
+        List<Rock> resultAsList = new ArrayList<>();
+        result.forEach(resultAsList::add);
+
+        // assert
+        assertNotNull(result);
+        assertEquals(rock1, resultAsList.get(0));
+        assertEquals(rock2, resultAsList.get(1));
+        assertEquals(rock3, resultAsList.get(2));
     }
 
     @Test
