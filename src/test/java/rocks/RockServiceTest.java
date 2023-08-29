@@ -2,12 +2,11 @@ package rocks;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -42,7 +41,7 @@ class RockServiceTest {
         );
 
         // act
-        List<Rock> result = RockService.defaultItems();
+        List<Rock> result = RockService.defaultRocks();
 
         // assert
         assertEquals(expected.get(0).type, result.get(0).type);
@@ -51,12 +50,25 @@ class RockServiceTest {
     }
 
     @Test
-    public void rockServiceConstructor_ShouldAddDefaultRocks() {
-        // arrange and act
-        RockService rockService = new RockService(rockRepository);
+    public void rockServiceConstructor_ShouldAddDefaultRocks() throws Exception {
+        // arrange
+        String type1 = "Obsidian";
+        String type2 = "Basalt";
+        String type3 = "Quartz";
 
-        // assert
-        verify(rockRepository).saveAll(eq(defaultItems()));
+        ArgumentCaptor<List<Rock>> captor = ArgumentCaptor.forClass(List.class);
+
+        Set<String> encounteredTypes = new HashSet<>();
+
+        // act and assert;
+        verify(rockRepository, times(1)).saveAll(captor.capture());
+        List<Rock> capturedRocks = captor.getValue();
+
+        for (Rock rock : capturedRocks) {
+            assert rock.type.equals(type1) || rock.type.equals(type2) || rock.type.equals(type3);
+            encounteredTypes.add(rock.type);
+        }
+        assertEquals(3, encounteredTypes.size());
     }
 
     @Test
