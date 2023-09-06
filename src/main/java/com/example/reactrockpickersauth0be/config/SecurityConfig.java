@@ -3,6 +3,7 @@ package com.example.reactrockpickersauth0be.config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.cors.CorsConfiguration;
@@ -20,11 +21,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, CorsConfigurationSource corsConfigurationSource) throws Exception {
         http
                 .authorizeRequests()
-                .requestMatchers(HttpMethod.GET, "/getAllRocks").authenticated()
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .anyRequest().permitAll()
+                .requestMatchers(HttpMethod.GET, "/getAllRocks").authenticated()
+                .anyRequest().denyAll()
                 .and()
-                .cors(cors -> cors.configurationSource(corsConfigurationSource));
+                .cors(cors -> cors.configurationSource(corsConfigurationSource))
+                .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()));
 
         return http.build();
     }
