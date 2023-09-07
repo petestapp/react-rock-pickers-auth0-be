@@ -35,9 +35,11 @@ class RockServiceTest {
     public void defaultItems_ShouldCreateListOfRocks() {
         // arrange
         List<Rock> expected = List.of(
-                new Rock("Obsidian"),
-                new Rock("Basalt"),
-                new Rock("Quartz")
+                new Rock("Obsidian", false),
+                new Rock("Basalt", false),
+                new Rock("Gneiss", true),
+                new Rock("Quartz", false),
+                new Rock("Marble", true)
         );
 
         // act
@@ -54,7 +56,9 @@ class RockServiceTest {
         // arrange
         String type1 = "Obsidian";
         String type2 = "Basalt";
-        String type3 = "Quartz";
+        String type3 = "Gneiss";
+        String type4 = "Quartz";
+        String type5 = "Marble";
 
         ArgumentCaptor<List<Rock>> captor = ArgumentCaptor.forClass(List.class);
 
@@ -65,17 +69,17 @@ class RockServiceTest {
         List<Rock> capturedRocks = captor.getValue();
 
         for (Rock rock : capturedRocks) {
-            assert rock.type.equals(type1) || rock.type.equals(type2) || rock.type.equals(type3);
+            assert rock.type.equals(type1) || rock.type.equals(type2) || rock.type.equals(type3) || rock.type.equals(type4) || rock.type.equals(type5);
             encounteredTypes.add(rock.type);
         }
-        assertEquals(3, encounteredTypes.size());
+        assertEquals(5, encounteredTypes.size());
     }
 
     @Test
     public void saveRock_ShouldSaveRock() throws Exception {
         // arrange
         String type = "Obsidian";
-        Rock rock = new Rock(type);
+        Rock rock = new Rock(type, false);
 
         when(rockRepository.save(rock)).thenReturn(rock);
 
@@ -95,9 +99,9 @@ class RockServiceTest {
         String type3 = "Quartz";
 
         Iterable<Rock> expectedAsIterable = Arrays.asList(
-                new Rock(type1),
-                new Rock(type2),
-                new Rock(type3)
+                new Rock(type1, false),
+                new Rock(type2, false),
+                new Rock(type3, false)
         );
 
         List<Rock> expectedAsList = new ArrayList<>();

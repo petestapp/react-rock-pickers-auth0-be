@@ -18,11 +18,13 @@ class RockTest {
     public void rockConstructorTest_ShouldCreateRock() {
         // arrange
         String type = "Obsidian";
+        boolean secret = false;
 
         // act
-        Rock rock = new Rock(type);
+        Rock rock = new Rock(type, false);
 
         // assert
         assertEquals(type, rock.type);
+        assertEquals(secret, rock.secret);
     }
 }

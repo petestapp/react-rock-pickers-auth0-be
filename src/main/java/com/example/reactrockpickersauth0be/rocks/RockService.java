@@ -16,9 +16,11 @@ public class RockService {
 
     public static List<Rock> defaultRocks() {
         return List.of(
-                new Rock("Obsidian"),
-                new Rock("Basalt"),
-                new Rock("Quartz")
+                new Rock("Obsidian", false),
+                new Rock("Basalt", false),
+                new Rock("Gneiss", true),
+                new Rock("Quartz", false),
+                new Rock("Marble", true)
         );
     }
 
@@ -31,6 +33,13 @@ public class RockService {
         List<Rock> list = new ArrayList<>();
         Iterable<Rock> rocks = repository.findAll();
         rocks.forEach(list::add);
+        return list;
+    }
+
+    public List<Rock> getAllRocksForUser() {
+        List<Rock> list = new ArrayList<>();
+//        Iterable<Rock> rocks = repository.findAllBySecret(false);
+//        rocks.forEach(list::add);
         return list;
     }
 }

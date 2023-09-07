@@ -50,13 +50,13 @@ class RockControllerTest {
     public void getAllRocks_ShouldReturnAllRocks() throws Exception {
         // arrange
         String type1 = "Obsidian";
-        Rock rock1 = new Rock(type1);
+        Rock rock1 = new Rock(type1, false);
 
         String type2 = "Basalt";
-        Rock rock2 = new Rock(type2);
+        Rock rock2 = new Rock(type2, false);
 
         String type3 = "Quartz";
-        Rock rock3 = new Rock(type3);
+        Rock rock3 = new Rock(type3, false);
 
         List<Rock> rocks = new ArrayList<>();
         rocks.add(rock1);
