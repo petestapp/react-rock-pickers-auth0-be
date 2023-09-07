@@ -71,9 +71,17 @@ class RockRepositoryTest {
         Rock rock2 = new Rock(type2, false);
         rockRepository.save(rock2);
 
-        String type3 = "Quartz";
-        Rock rock3 = new Rock(type3, false);
+        String type3 = "Gneiss";
+        Rock rock3 = new Rock(type3, true);
         rockRepository.save(rock3);
+
+        String type4 = "Quartz";
+        Rock rock4 = new Rock(type4, false);
+        rockRepository.save(rock4);
+
+        String type5 = "Marble";
+        Rock rock5 = new Rock(type5, true);
+        rockRepository.save(rock5);
 
         // act
         Iterable<Rock> result = rockRepository.findAll();
@@ -81,9 +89,53 @@ class RockRepositoryTest {
         result.forEach(resultAsList::add);
 
         // assert
-        assertEquals(3, resultAsList.size());
+        assertEquals(5, resultAsList.size());
+
         assertEquals(type1, resultAsList.get(0).type);
         assertEquals(type2, resultAsList.get(1).type);
         assertEquals(type3, resultAsList.get(2).type);
+        assertEquals(type4, resultAsList.get(3).type);
+        assertEquals(type5, resultAsList.get(4).type);
+
+        assertEquals(false, resultAsList.get(0).secret);
+        assertEquals(false, resultAsList.get(1).secret);
+        assertEquals(true, resultAsList.get(2).secret);
+        assertEquals(false, resultAsList.get(3).secret);
+        assertEquals(true, resultAsList.get(4).secret);
+    }
+
+    @Test
+    public void findBySecretFalse_ShouldReturnAllRocksWhereSecretIsFalse() {
+        // arrange
+        String type1 = "Obsidian";
+        Rock rock1 = new Rock(type1, false);
+        rockRepository.save(rock1);
+
+        String type2 = "Basalt";
+        Rock rock2 = new Rock(type2, false);
+        rockRepository.save(rock2);
+
+        String type3 = "Gneiss";
+        Rock rock3 = new Rock(type3, true);
+        rockRepository.save(rock3);
+
+        String type4 = "Quartz";
+        Rock rock4 = new Rock(type4, false);
+        rockRepository.save(rock4);
+
+        String type5 = "Marble";
+        Rock rock5 = new Rock(type5, true);
+        rockRepository.save(rock5);
+
+        // act
+        Iterable<Rock> result = rockRepository.findBySecretFalse();
+        List<Rock> resultAsList = new ArrayList<Rock>();
+        result.forEach(resultAsList::add);
+
+        // assert
+        assertEquals(3, resultAsList.size());
+        assertEquals(type1, resultAsList.get(0).type);
+        assertEquals(type2, resultAsList.get(1).type);
+        assertEquals(type4, resultAsList.get(2).type);
     }
 }
