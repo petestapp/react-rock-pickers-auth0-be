@@ -100,7 +100,7 @@ class RockServiceTest {
 
         Iterable<Rock> expectedAsIterable = Arrays.asList(
                 new Rock(type1, false),
-                new Rock(type2, false),
+                new Rock(type2, true),
                 new Rock(type3, false)
         );
 
@@ -111,6 +111,34 @@ class RockServiceTest {
 
         // act
         List<Rock> result = rockService.getAllRocks();
+
+        // assert
+        assertEquals(expectedAsList.size(), result.size());
+        assertEquals(type1, result.get(0).type);
+        assertEquals(type2, result.get(1).type);
+        assertEquals(type3, result.get(2).type);
+    }
+
+    @Test
+    public void getAllRocksForUser_ShouldGetAllRocksWhereSecretIsFalse() {
+        // arrange
+        String type1 = "Obsidian";
+        String type2 = "Basalt";
+        String type3 = "Quartz";
+
+        Iterable<Rock> expectedAsIterable = Arrays.asList(
+                new Rock(type1, false),
+                new Rock(type2, false),
+                new Rock(type3, false)
+        );
+
+        List<Rock> expectedAsList = new ArrayList<>();
+        expectedAsIterable.forEach(expectedAsList::add);
+
+        when(rockRepository.findBySecretFalse()).thenReturn(expectedAsList);
+
+        // act
+        List<Rock> result = rockService.getAllRocksForUser();
 
         // assert
         assertEquals(expectedAsList.size(), result.size());
