@@ -38,8 +38,8 @@ public class RockService {
 
     public List<Rock> getAllRocksForUser() {
         List<Rock> list = new ArrayList<>();
-//        Iterable<Rock> rocks = repository.findAllBySecret(false);
-//        rocks.forEach(list::add);
+        Iterable<Rock> rocks = repository.findBySecretFalse();
+        rocks.forEach(list::add);
         return list;
     }
 }
