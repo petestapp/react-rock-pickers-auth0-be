@@ -1,8 +1,12 @@
 package com.example.reactrockpickersauth0be.rocks;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -29,7 +33,30 @@ public class RockService {
         return rock;
     }
 
+    public List<Rock> processRocksBasedOnUserRole() throws AccessDeniedException {
+        Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getAuthorities();
+
+        System.out.println(authorities);
+
+        boolean isAdmin = authorities.stream()
+                .anyMatch(authority -> authority.getAuthority().equals("ADMIN"));
+
+        boolean isUser = authorities.stream()
+                .anyMatch(authority -> authority.getAuthority().equals("USER"));
+
+        if (isAdmin) {
+            return getAllRocks();
+        } else if (isUser) {
+            return getAllRocksForUser();
+        } else {
+            throw new AccessDeniedException("Access denied");
+        }
+    }
+
     public List<Rock> getAllRocks() {
+        // make say something about admin
         List<Rock> list = new ArrayList<>();
         Iterable<Rock> rocks = repository.findAll();
         rocks.forEach(list::add);

@@ -23,6 +23,9 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/getAllRocks").authenticated()
+                .requestMatchers(HttpMethod.GET, "/getAllRocksForUser").authenticated()
+//                .requestMatchers(HttpMethod.GET, "/getAllRocks").hasRole("USER")
+//                .requestMatchers(HttpMethod.GET, "/getAllRocksForUser").hasRole("ADMIN")
                 .anyRequest().denyAll()
                 .and()
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
@@ -37,6 +40,7 @@ public class SecurityConfig {
         corsConfiguration.addAllowedOrigin("http://localhost:3000");
         corsConfiguration.setAllowedMethods(Arrays.asList("GET", "OPTIONS"));
         corsConfiguration.addAllowedHeader("*");
+        // look up
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
